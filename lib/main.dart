@@ -2,22 +2,33 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // below uses named arguments
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Expense tracker'),
-      ),
-      body: Center(
-        child: Text('This is a nice expense tracing app'),
-      ),
+    return MaterialApp(
+      home: Scaffold(
+          appBar: AppBar(
+            title: Text('Expense tracker'),
+          ),
+          body: Column(
+            children: <Widget>[
+              Container(
+                child: Card(
+                  child: Text('Chart'),
+                  elevation: 5,
+                  color: Colors.blue,
+                ),
+                width: double.infinity,
+              ),
+              Card(
+                child: Text('List of transactions'),
+                color: Colors.red,
+              )
+            ],
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+          )),
     );
   }
 }
