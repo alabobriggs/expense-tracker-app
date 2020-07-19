@@ -43,13 +43,43 @@ class MyApp extends StatelessWidget {
                     child: Row(
                       children: <Widget>[
                         Container(
-                          child: Text(transaction.amount.toString()),
+                          child: Text(
+                            transaction.amount.toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: Colors.purple),
+                          ),
+                          margin: EdgeInsets.symmetric(
+                            vertical: 10,
+                            horizontal: 15,
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.purple,
+                              width: 2,
+                            ),
+                          ),
+                          padding: EdgeInsets.all(10),
                         ),
                         Column(
                           children: <Widget>[
-                            Text(transaction.title),
-                            Text(transaction.date.toString()),
+                            Text(
+                              transaction.title,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              transaction.date.toString(),
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey),
+                            ),
                           ],
+                          crossAxisAlignment: CrossAxisAlignment.start,
                         )
                       ],
                     ),
@@ -57,7 +87,7 @@ class MyApp extends StatelessWidget {
                 }).toList(),
               )
             ],
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
           )),
     );
