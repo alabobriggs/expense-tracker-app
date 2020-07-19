@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
                       children: <Widget>[
                         Container(
                           child: Text(
-                            transaction.amount.toString(),
+                            '\$${transaction.amount}',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
