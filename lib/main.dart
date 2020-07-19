@@ -38,6 +38,32 @@ class MyApp extends StatelessWidget {
                 ),
                 width: double.infinity,
               ),
+              Card(
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Title',
+                        ),
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Amount',
+                        ),
+                      ),
+                      FlatButton(
+                        child: Text('Add transaction'),
+                        onPressed: () {},
+                        textColor: Colors.purple,
+                      )
+                    ],
+                    crossAxisAlignment: CrossAxisAlignment.end ,
+                  ),
+                  padding: EdgeInsets.all(10),
+                ),
+                elevation: 5,
+              ),
               Column(
                 children: transactions.map((transaction) {
                   return Card(
@@ -88,8 +114,7 @@ class MyApp extends StatelessWidget {
                 }).toList(),
               )
             ],
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
           )),
     );
   }
