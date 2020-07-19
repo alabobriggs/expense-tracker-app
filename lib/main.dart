@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
     Transaction(
       id: '23fjslq',
       title: 'New shoes',
-      amount: 4009,
+      amount: 3490,
       date: DateTime.now(),
     ),
     Transaction(
@@ -37,13 +37,28 @@ class MyApp extends StatelessWidget {
                 ),
                 width: double.infinity,
               ),
-              Card(
-                child: Text('List of transactions'),
-                color: Colors.red,
+              Column(
+                children: transactions.map((transaction) {
+                  return Card(
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          child: Text(transaction.amount.toString()),
+                        ),
+                        Column(
+                          children: <Widget>[
+                            Text(transaction.title),
+                            Text(transaction.date.toString()),
+                          ],
+                        )
+                      ],
+                    ),
+                  );
+                }).toList(),
               )
             ],
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
           )),
     );
   }
