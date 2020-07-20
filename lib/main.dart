@@ -11,21 +11,25 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Personal Expense',
       theme: ThemeData(
-          primarySwatch: Colors.indigo,
-          accentColor: Colors.amber,
-          fontFamily: 'Quicksand',
+        primarySwatch: Colors.indigo,
+        accentColor: Colors.amber,
+        fontFamily: 'Quicksand',
+        textTheme: ThemeData.light().textTheme.copyWith(
+              headline2: TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+        appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
                 headline6: TextStyle(
                   fontFamily: 'OpenSans',
-                  fontSize: 18 ,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
                 ),
               ),
-          appBarTheme: AppBarTheme(
-            textTheme: ThemeData.light().textTheme.copyWith(
-                  headline6: TextStyle(fontFamily: 'OpenSans', fontSize: 20),
-                ),
-          )),
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       home: MyHomePage(),
     );
@@ -39,18 +43,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyAppState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
-    Transaction(
-      id: '23fjslq',
-      title: 'New shoes',
-      amount: 3490,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: '22fjslq',
-      title: 'weekly groceries',
-      amount: 1009,
-      date: DateTime.now(),
-    ),
+    // Transaction(
+    //   id: '23fjslq',
+    //   title: 'New shoes',
+    //   amount: 3490,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: '22fjslq',
+    //   title: 'weekly groceries',
+    //   amount: 1009,
+    //   date: DateTime.now(),
+    // ),
   ];
 
   void _addNewTransaction({String title, double amount}) {
