@@ -3,7 +3,7 @@ import 'package:expense/widgets/new_transaction.dart';
 import 'package:expense/widgets/transaction_list.dart';
 import 'package:flutter/material.dart';
 
-class UserTransactions extends StatefulWidget {
+class  UserTransactions extends StatefulWidget {
   @override
   _UserTransactionsState createState() => _UserTransactionsState();
 }

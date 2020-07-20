@@ -12,19 +12,21 @@ class MyApp extends StatelessWidget {
           appBar: AppBar(
             title: Text('Expense tracker'),
           ),
-          body: Column(
-            children: <Widget>[
-              Container(
-                child: Card(
-                  child: Text('Chart'),
-                  elevation: 5,
-                  color: Colors.blue,
+          body: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  child: Card(
+                    child: Text('Chart'),
+                    elevation: 5,
+                    color: Colors.blue,
+                  ),
+                  width: double.infinity,
                 ),
-                width: double.infinity,
-              ),
-              UserTransactions()
-            ],
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+                UserTransactions()
+              ],
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+            ),
           )),
     );
   }
