@@ -17,7 +17,6 @@ class UserTransactions extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        NewTransaction(addNewTransaction),
         TransactionList(
           userTransactions,
         ),

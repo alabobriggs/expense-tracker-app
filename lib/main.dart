@@ -11,9 +11,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Personal Expense',
       theme: ThemeData(
-        primarySwatch: Colors.indigo,
-        accentColor: Colors.amber
-      ),
+          primarySwatch: Colors.indigo,
+          accentColor: Colors.amber,
+          fontFamily: 'Quicksand',
+          textTheme: ThemeData.light().textTheme.copyWith(
+                headline6: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 18 ,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+          appBarTheme: AppBarTheme(
+            textTheme: ThemeData.light().textTheme.copyWith(
+                  headline6: TextStyle(fontFamily: 'OpenSans', fontSize: 20),
+                ),
+          )),
       debugShowCheckedModeBanner: false,
       home: MyHomePage(),
     );
@@ -72,7 +84,9 @@ class _MyAppState extends State<MyHomePage> {
     // below uses named arguments
     return Scaffold(
         appBar: AppBar(
-          title: Text('Personal Expense'),
+          title: Text(
+            'Personal Expense',
+          ),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.add),
