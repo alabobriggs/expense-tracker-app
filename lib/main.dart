@@ -5,12 +5,22 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
     Transaction(
       id: '23fjslq',
@@ -55,47 +65,40 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     // below uses named arguments
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-          appBar: AppBar(
-            title: Text('Expense tracker'),
-            actions: <Widget>[
-              Builder(
-                builder: (bCtx) => IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: () => startNewAddTransaction(bCtx),
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.red,
+          title: Text('Expense tracker'),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () => startNewAddTransaction(context),
+            )
+          ],
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                child: Card(
+                  child: Text('Chart'),
+                  elevation: 5,
+                  color: Colors.blue,
                 ),
+                width: double.infinity,
+              ),
+              UserTransactions(
+                addNewTransaction: _addNewTransaction,
+                userTransactions: _userTransactions,
               )
             ],
+            crossAxisAlignment: CrossAxisAlignment.stretch,
           ),
-          body: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  child: Card(
-                    child: Text('Chart'),
-                    elevation: 5,
-                    color: Colors.blue,
-                  ),
-                  width: double.infinity,
-                ),
-                UserTransactions(
-                  addNewTransaction: _addNewTransaction,
-                  userTransactions: _userTransactions,
-                )
-              ],
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-            ),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat,
-          floatingActionButton: Builder(builder: (bCtx) {
-            return FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () => startNewAddTransaction(bCtx),
-            );
-          })),
-    );
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () => startNewAddTransaction(context),
+        ));
   }
 }

@@ -28,6 +28,8 @@ class _NewTransactionState extends State<NewTransaction> {
       title: enteredTitle,
       amount: enteredAmount,
     );
+
+    Navigator.of(context).pop();
   }
 
   @override
