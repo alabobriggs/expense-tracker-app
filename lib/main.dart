@@ -9,25 +9,37 @@ class MyApp extends StatelessWidget {
     // below uses named arguments
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            title: Text('Expense tracker'),
-          ),
-          body: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  child: Card(
-                    child: Text('Chart'),
-                    elevation: 5,
-                    color: Colors.blue,
-                  ),
-                  width: double.infinity,
-                ),
-                UserTransactions()
-              ],
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+        appBar: AppBar(
+          title: Text('Expense tracker'),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {},
             ),
-          )),
+          ],
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                child: Card(
+                  child: Text('Chart'),
+                  elevation: 5,
+                  color: Colors.blue,
+                ),
+                width: double.infinity,
+              ),
+              UserTransactions()
+            ],
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {},
+        ),
+      ),
     );
   }
 }
