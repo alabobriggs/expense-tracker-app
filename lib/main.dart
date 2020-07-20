@@ -9,6 +9,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Personal Expense',
+      theme: ThemeData(
+        primarySwatch: Colors.indigo,
+        accentColor: Colors.amber
+      ),
       debugShowCheckedModeBanner: false,
       home: MyHomePage(),
     );
@@ -67,8 +72,7 @@ class _MyAppState extends State<MyHomePage> {
     // below uses named arguments
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.red,
-          title: Text('Expense tracker'),
+          title: Text('Personal Expense'),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.add),
