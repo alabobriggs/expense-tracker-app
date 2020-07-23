@@ -63,5 +63,3 @@ class Chart extends StatelessWidget {
     );
   }
 }
-
-//Text('${data['day']} : ${data['amount']}');
