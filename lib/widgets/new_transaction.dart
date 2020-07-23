@@ -29,10 +29,7 @@ class _NewTransactionState extends State<NewTransaction> {
     }
 
     widget.addNewTransaction(
-      title: enteredTitle,
-      amount: enteredAmount,
-      date: _selectedDate
-    );
+        title: enteredTitle, amount: enteredAmount, date: _selectedDate);
 
     Navigator.of(context).pop();
   }
@@ -55,9 +52,15 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SingleChildScrollView(
       child: Card(
         child: Container(
+          padding: EdgeInsets.only(
+            top: 10,
+            left: 10,
+            right: 10,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+          ),
           child: Column(
             children: <Widget>[
               TextField(
@@ -109,7 +112,6 @@ class _NewTransactionState extends State<NewTransaction> {
             ],
             crossAxisAlignment: CrossAxisAlignment.end,
           ),
-          padding: EdgeInsets.all(10),
         ),
         elevation: 5,
       ),
