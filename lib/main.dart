@@ -1,7 +1,7 @@
 import 'package:expense/models/transaction.dart';
 import 'package:expense/widgets/chart.dart';
 import 'package:expense/widgets/new_transaction.dart';
-import 'package:expense/widgets/user_transaction.dart';
+import 'package:expense/widgets/transaction_list.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -112,8 +112,7 @@ class _MyAppState extends State<MyHomePage> {
           child: Column(
             children: <Widget>[
               Chart(_recentTransactions),
-              UserTransactions(
-                addNewTransaction: _addNewTransaction,
+              TransactionList(
                 userTransactions: _userTransactions,
                 deleteTransaction: _deleteTransaction,
               )
