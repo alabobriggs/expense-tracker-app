@@ -90,6 +90,9 @@ class _MyAppState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final isLandScape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
     final appBar = AppBar(
       title: Text(
         'Personal Expense',
@@ -102,42 +105,55 @@ class _MyAppState extends State<MyHomePage> {
       ],
     );
 
+    final transactionListWidget = Container(
+      height: (MediaQuery.of(context).size.height -
+              appBar.preferredSize.height -
+              MediaQuery.of(context).padding.top) *
+          0.7,
+      child: TransactionList(
+        userTransactions: _userTransactions,
+        deleteTransaction: _deleteTransaction,
+      ),
+    );
+
     return Scaffold(
         appBar: appBar,
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text('Show chart'),
-                  Switch(
-                      value: _showChart,
-                      onChanged: (val) {
-                        setState(() {
-                          _showChart = val;
-                        });
-                      })
-                ],
-              ),
-              _showChart
-                  ? Container(
-                      height: (MediaQuery.of(context).size.height -
-                              appBar.preferredSize.height -
-                              MediaQuery.of(context).padding.top) *
-                          0.7,
-                      child: Chart(_recentTransactions),
-                    )
-                  : Container(
-                      height: (MediaQuery.of(context).size.height -
-                              appBar.preferredSize.height -
-                              MediaQuery.of(context).padding.top) *
-                          0.7,
-                      child: TransactionList(
-                        userTransactions: _userTransactions,
-                        deleteTransaction: _deleteTransaction,
-                      ),
-                    ),
+              if (isLandScape)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('Show chart'),
+                    Switch(
+                        value: _showChart,
+                        onChanged: (val) {
+                          setState(() {
+                            _showChart = val;
+                          });
+                        })
+                  ],
+                ),
+              if (!isLandScape)
+                Container(
+                  height: (MediaQuery.of(context).size.height -
+                          appBar.preferredSize.height -
+                          MediaQuery.of(context).padding.top) *
+                      0.3,
+                  child: Chart(_recentTransactions),
+                ),
+              if (!isLandScape) transactionListWidget,
+              if (isLandScape)
+                _showChart
+                    ? Container(
+                        height: (MediaQuery.of(context).size.height -
+                                appBar.preferredSize.height -
+                                MediaQuery.of(context).padding.top) *
+                            0.7,
+                        child: Chart(_recentTransactions),
+                      )
+                    : transactionListWidget,
             ],
             crossAxisAlignment: CrossAxisAlignment.stretch,
           ),
