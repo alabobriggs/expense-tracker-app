@@ -49,12 +49,6 @@ class _MyAppState extends State<MyHomePage> {
     //   amount: 3490,
     //   date: DateTime.now(),
     // ),
-    // Transaction(
-    //   id: '22fjslq',
-    //   title: 'weekly groceries',
-    //   amount: 1009,
-    //   date: DateTime.now(),
-    // ),
   ];
 
   List<Transaction> get _recentTransactions {
@@ -80,7 +74,7 @@ class _MyAppState extends State<MyHomePage> {
     });
   }
 
-  void startNewAddTransaction(BuildContext ctx) {
+  void _startNewAddTransaction(BuildContext ctx) {
     showModalBottomSheet(
       context: ctx,
       builder: (_) {
@@ -91,6 +85,12 @@ class _MyAppState extends State<MyHomePage> {
         );
       },
     );
+  }
+
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransactions.removeWhere((transaction) => transaction.id == id);
+    });
   }
 
   @override
@@ -104,7 +104,7 @@ class _MyAppState extends State<MyHomePage> {
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.add),
-              onPressed: () => startNewAddTransaction(context),
+              onPressed: () => _startNewAddTransaction(context),
             )
           ],
         ),
@@ -115,6 +115,7 @@ class _MyAppState extends State<MyHomePage> {
               UserTransactions(
                 addNewTransaction: _addNewTransaction,
                 userTransactions: _userTransactions,
+                deleteTransaction: _deleteTransaction,
               )
             ],
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -123,7 +124,7 @@ class _MyAppState extends State<MyHomePage> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
-          onPressed: () => startNewAddTransaction(context),
+          onPressed: () => _startNewAddTransaction(context),
         ));
   }
 }
