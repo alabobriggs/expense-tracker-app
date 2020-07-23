@@ -112,7 +112,7 @@ class _MyAppState extends State<MyHomePage> {
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              Chart(_userTransactions),
+              Chart(_recentTransactions),
               UserTransactions(
                 addNewTransaction: _addNewTransaction,
                 userTransactions: _userTransactions,
