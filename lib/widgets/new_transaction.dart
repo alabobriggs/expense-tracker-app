@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:expense/widgets/adaptive_flat_button.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,16 +8,45 @@ class NewTransaction extends StatefulWidget {
 
   NewTransaction(
     this.addNewTransaction,
-  );
+  ) {
+    print('Constructore new transaction widget');
+  }
 
   @override
-  _NewTransactionState createState() => _NewTransactionState();
+  _NewTransactionState createState() {
+    print('CreateState NewTransaction Widget');
+    return _NewTransactionState();
+  }
 }
 
 class _NewTransactionState extends State<NewTransaction> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
   DateTime _selectedDate;
+
+  __NewTransactionState() {
+    print('Constructore new transaction State');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    print('Init sttae');
+  }
+
+  @override
+  void didUpdateWidget(NewTransaction oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    print('Did update widget');
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    
+    print('Dispose()');
+  }
 
   void _onSubmitHandler() {
     if (_amountController.text.isEmpty) {
@@ -66,7 +95,7 @@ class _NewTransactionState extends State<NewTransaction> {
           child: Column(
             children: <Widget>[
               TextField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Title',
                 ),
                 controller: _titleController,
@@ -91,33 +120,15 @@ class _NewTransactionState extends State<NewTransaction> {
                             : 'PickedDate: ${DateFormat.yMd().format(_selectedDate)}',
                       ),
                     ),
-                    Platform.isIOS
-                        ? CupertinoButton(
-                            child: Text(
-                              'Choose Date',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                            onPressed: _presentDatePicker,
-                          )
-                        : FlatButton(
-                            child: Text(
-                              'Choose Date',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                            textColor: Theme.of(context).primaryColor,
-                            onPressed: _presentDatePicker,
-                          )
+                    AdaptiveFlatButton(
+                      text: 'Choose date',
+                      onPressed: _presentDatePicker,
+                    )
                   ],
                 ),
               ),
               RaisedButton(
-                child: Text('Add transaction'),
+                child: const Text('Add transaction'),
                 textColor: Theme.of(context).textTheme.button.color,
                 color: Theme.of(context).primaryColor,
                 onPressed: _onSubmitHandler,
