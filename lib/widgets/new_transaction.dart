@@ -8,13 +8,10 @@ class NewTransaction extends StatefulWidget {
 
   NewTransaction(
     this.addNewTransaction,
-  ) {
-    print('Constructore new transaction widget');
-  }
+  );
 
   @override
   _NewTransactionState createState() {
-    print('CreateState NewTransaction Widget');
     return _NewTransactionState();
   }
 }
@@ -24,28 +21,19 @@ class _NewTransactionState extends State<NewTransaction> {
   final _amountController = TextEditingController();
   DateTime _selectedDate;
 
-  __NewTransactionState() {
-    print('Constructore new transaction State');
-  }
-
   @override
   void initState() {
     super.initState();
-    print('Init sttae');
   }
 
   @override
   void didUpdateWidget(NewTransaction oldWidget) {
     super.didUpdateWidget(oldWidget);
-
-    print('Did update widget');
   }
 
   @override
   void dispose() {
     super.dispose();
-    
-    print('Dispose()');
   }
 
   void _onSubmitHandler() {
