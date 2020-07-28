@@ -1,88 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 import '../models/transaction.dart';
+import './transaction_item.dart';
 
 class TransactionList extends StatelessWidget {
-  final List<Transaction> userTransactions;
-  final Function deleteTransaction;
+  final List<Transaction> transactions;
+  final Function deleteTx;
 
-  TransactionList({
-    this.userTransactions,
-    this.deleteTransaction,
-  });
+  TransactionList(this.transactions, this.deleteTx);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: userTransactions.isEmpty
-          ? LayoutBuilder(builder: (ctx, constraints) {
-              return Column(
-                children: <Widget>[
-                  Text(
-                    'No transaction yet',
-                    style: Theme.of(context).textTheme.headline2,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
+    print('build() TransactionList');
+    return transactions.isEmpty
+        ? LayoutBuilder(builder: (ctx, constraints) {
+            return Column(
+              children: <Widget>[
+                Text(
+                  'No transactions added yet!',
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
                     height: constraints.maxHeight * 0.6,
                     child: Image.asset(
                       'assets/images/waiting.png',
-                      fit: BoxFit.contain,
-                    ),
-                  )
-                ],
-              );
-            })
-          : ListView.builder(
-              itemBuilder: (ctx, idx) {
-                return Card(
-                  margin: EdgeInsets.symmetric(
-                    vertical: 10,
-                    horizontal: 5,
-                  ),
-                  elevation: 5,
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      radius: 30,
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: FittedBox(
-                          child: Text('\$${userTransactions[idx].amount}'),
-                        ),
-                      ),
-                    ),
-                    title: Text(
-                      '${userTransactions[idx].title}',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    subtitle: Text(
-                      DateFormat.yMMMd().format(userTransactions[idx].date),
-                    ),
-                    trailing: MediaQuery.of(context).size.width > 360
-                        ? FlatButton.icon(
-                            onPressed: () {
-                              deleteTransaction(userTransactions[idx].id);
-                            },
-                            icon: Icon(Icons.delete),
-                            label: Text(
-                              'Delete',
-                            ),
-                            textColor: Theme.of(context).errorColor,
-                          )
-                        : IconButton(
-                            icon: Icon(Icons.delete),
-                            onPressed: () {
-                              deleteTransaction(userTransactions[idx].id);
-                            },
-                            color: Theme.of(context).errorColor,
-                          ),
-                  ),
-                );
-              },
-              itemCount: userTransactions.length,
-            ),
-    );
+                      fit: BoxFit.cover,
+                    )),
+              ],
+            );
+          })
+        : ListView(
+            children: transactions
+                .map((tx) => TransactionItem(
+                      key: ValueKey(tx.id),
+                      transaction: tx,
+                      deleteTx: deleteTx,
+                    ))
+                .toList(),
+          );
   }
 }

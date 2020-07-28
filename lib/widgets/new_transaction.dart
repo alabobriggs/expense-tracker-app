@@ -1,17 +1,21 @@
-import 'package:expense/widgets/adaptive_flat_button.dart';
-import 'package:intl/intl.dart';
-import 'package:flutter/material.dart';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+import '../widgets/adaptive_flat_button.dart';
 
 class NewTransaction extends StatefulWidget {
-  final Function addNewTransaction;
+  final Function addTx;
 
-  NewTransaction(
-    this.addNewTransaction,
-  );
+  NewTransaction(this.addTx) {
+    print('Constructor NewTransaction Widget');
+  }
 
   @override
   _NewTransactionState createState() {
+    print('createState NewTransaction Widget');
     return _NewTransactionState();
   }
 }
@@ -21,22 +25,29 @@ class _NewTransactionState extends State<NewTransaction> {
   final _amountController = TextEditingController();
   DateTime _selectedDate;
 
+  _NewTransactionState() {
+    print('Constructor NewTransaction State');
+  }
+
   @override
   void initState() {
+    print('initState()');
     super.initState();
   }
 
   @override
   void didUpdateWidget(NewTransaction oldWidget) {
+    print('didUpdateWidget()');
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   void dispose() {
+    print('dispose()');
     super.dispose();
   }
 
-  void _onSubmitHandler() {
+  void _submitData() {
     if (_amountController.text.isEmpty) {
       return;
     }
@@ -47,32 +58,37 @@ class _NewTransactionState extends State<NewTransaction> {
       return;
     }
 
-    widget.addNewTransaction(
-        title: enteredTitle, amount: enteredAmount, date: _selectedDate);
+    widget.addTx(
+      enteredTitle,
+      enteredAmount,
+      _selectedDate,
+    );
 
     Navigator.of(context).pop();
   }
 
-  void _presentDatePicker() async {
-    DateTime pickedDate = await showDatePicker(
+  void _presentDatePicker() {
+    showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2019),
       lastDate: DateTime.now(),
-    );
-
-    if (pickedDate == null) {
-      return;
-    }
-    setState(() {
-      _selectedDate = pickedDate;
+    ).then((pickedDate) {
+      if (pickedDate == null) {
+        return;
+      }
+      setState(() {
+        _selectedDate = pickedDate;
+      });
     });
+    print('...');
   }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Card(
+        elevation: 5,
         child: Container(
           padding: EdgeInsets.only(
             top: 10,
@@ -81,21 +97,22 @@ class _NewTransactionState extends State<NewTransaction> {
             bottom: MediaQuery.of(context).viewInsets.bottom + 10,
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               TextField(
-                decoration: const InputDecoration(
-                  labelText: 'Title',
-                ),
+                decoration: InputDecoration(labelText: 'Title'),
                 controller: _titleController,
-                onSubmitted: (_) => _onSubmitHandler(),
+                onSubmitted: (_) => _submitData(),
+                // onChanged: (val) {
+                //   titleInput = val;
+                // },
               ),
               TextField(
-                decoration: InputDecoration(
-                  labelText: 'Amount',
-                ),
+                decoration: InputDecoration(labelText: 'Amount'),
                 controller: _amountController,
                 keyboardType: TextInputType.number,
-                onSubmitted: (_) => _onSubmitHandler(),
+                onSubmitted: (_) => _submitData(),
+                // onChanged: (val) => amountInput = val,
               ),
               Container(
                 height: 70,
@@ -104,28 +121,23 @@ class _NewTransactionState extends State<NewTransaction> {
                     Expanded(
                       child: Text(
                         _selectedDate == null
-                            ? 'No date chosen'
-                            : 'PickedDate: ${DateFormat.yMd().format(_selectedDate)}',
+                            ? 'No Date Chosen!'
+                            : 'Picked Date: ${DateFormat.yMd().format(_selectedDate)}',
                       ),
                     ),
-                    AdaptiveFlatButton(
-                      text: 'Choose date',
-                      onPressed: _presentDatePicker,
-                    )
+                    AdaptiveFlatButton('Choose Date', _presentDatePicker)
                   ],
                 ),
               ),
               RaisedButton(
-                child: const Text('Add transaction'),
-                textColor: Theme.of(context).textTheme.button.color,
+                child: Text('Add Transaction'),
                 color: Theme.of(context).primaryColor,
-                onPressed: _onSubmitHandler,
-              )
+                textColor: Theme.of(context).textTheme.button.color,
+                onPressed: _submitData,
+              ),
             ],
-            crossAxisAlignment: CrossAxisAlignment.end,
           ),
         ),
-        elevation: 5,
       ),
     );
   }

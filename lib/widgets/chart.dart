@@ -1,63 +1,66 @@
-import 'package:expense/widgets/chart_bar.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:expense/models/transaction.dart';
+import 'package:intl/intl.dart';
+
+import './chart_bar.dart';
+import '../models/transaction.dart';
 
 class Chart extends StatelessWidget {
   final List<Transaction> recentTransactions;
 
-  Chart(this.recentTransactions);
+  Chart(this.recentTransactions) {
+    print('Constructor Chart');
+  }
 
-  List<Map<String, Object>> get groupedTransactionsValues {
+  List<Map<String, Object>> get groupedTransactionValues {
     return List.generate(7, (index) {
-      final weekday = DateTime.now().subtract(Duration(days: index));
-
-      double totalSum = 0.0;
+      final weekDay = DateTime.now().subtract(
+        Duration(days: index),
+      );
+      var totalSum = 0.0;
 
       for (var i = 0; i < recentTransactions.length; i++) {
-        if (recentTransactions[i].date.day == weekday.day &&
-            recentTransactions[i].date.month == weekday.month &&
-            recentTransactions[i].date.year == weekday.year) {
+        if (recentTransactions[i].date.day == weekDay.day &&
+            recentTransactions[i].date.month == weekDay.month &&
+            recentTransactions[i].date.year == weekDay.year) {
           totalSum += recentTransactions[i].amount;
         }
       }
 
       return {
-        "day": DateFormat.E().format(weekday).substring(0, 1),
-        "amount": totalSum,
+        'day': DateFormat.E().format(weekDay).substring(0, 1),
+        'amount': totalSum,
       };
     }).reversed.toList();
   }
 
   double get totalSpending {
-    return groupedTransactionsValues.fold(
-      0.0,
-      (previousValue, item) => previousValue + item['amount'],
-    );
+    return groupedTransactionValues.fold(0.0, (sum, item) {
+      return sum + item['amount'];
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    print(totalSpending);
+    print('build() Chart');
     return Card(
-      elevation: 5,
+      elevation: 6,
       margin: EdgeInsets.all(20),
       child: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: EdgeInsets.all(10),
         child: Row(
-          children: groupedTransactionsValues.map((data) {
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: groupedTransactionValues.map((data) {
             return Flexible(
-              fit: FlexFit.loose,
+              fit: FlexFit.tight,
               child: ChartBar(
-                label: '${data['day']}',
-                spendingAmount: data['amount'],
-                spendingPercentOfTotal: totalSpending == 0.0
+                data['day'],
+                data['amount'],
+                totalSpending == 0.0
                     ? 0.0
                     : (data['amount'] as double) / totalSpending,
               ),
             );
           }).toList(),
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
         ),
       ),
     );
